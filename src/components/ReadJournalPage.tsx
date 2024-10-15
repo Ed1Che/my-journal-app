@@ -1,20 +1,71 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/ReadJournalPage.module.css';
 
-const mockJournalEntries = [
-  { title: 'Entry 1', date: '14/10/2024', content: 'Content of entry 1' },
-  { title: 'Entry 2', date: '13/10/2024', content: 'Content of entry 2' },
-  { title: 'Entry 3', date: '12/10/2024', content: 'Content of entry 3' },
-];
-
 const ReadJournalPage: React.FC = () => {
+  const [journalEntries, setJournalEntries] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const currentEntry = mockJournalEntries[currentIndex];
+  // Fetch journal entries when the component mounts
+  useEffect(() => {
+    const fetchJournals = async () => {
+      try {
+        const response = await fetch('/api/journal');
+        if (response.ok) {
+          const data = await response.json();
+          setJournalEntries(data);
+        } else {
+          console.error('Failed to fetch journal entries');
+        }
+      } catch (error) {
+        console.error('Error fetching journal entries:', error);
+      }
+    };
+
+    fetchJournals();
+  }, []);
+
+  // Fetch entries based on the search term
+  useEffect(() => {
+    if (searchTerm === '') {
+      const fetchJournals = async () => {
+        try {
+          const response = await fetch('/api/journal');
+          if (response.ok) {
+            const data = await response.json();
+            setJournalEntries(data);
+          } else {
+            console.error('Failed to fetch journal entries');
+          }
+        } catch (error) {
+          console.error('Error fetching journal entries:', error);
+        }
+      };
+
+      fetchJournals();
+    } else {
+      const searchJournals = async () => {
+        try {
+          const response = await fetch(`/api/journal/search?query=${searchTerm}`);
+          if (response.ok) {
+            const data = await response.json();
+            setJournalEntries(data);
+          } else {
+            console.error('Failed to fetch search results');
+          }
+        } catch (error) {
+          console.error('Error fetching search results:', error);
+        }
+      };
+
+      searchJournals();
+    }
+  }, [searchTerm]);
+
+  const currentEntry = journalEntries[currentIndex];
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, mockJournalEntries.length - 1));
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, journalEntries.length - 1));
   };
 
   const handlePrevious = () => {
@@ -24,12 +75,6 @@ const ReadJournalPage: React.FC = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
-
-  const filteredEntries = mockJournalEntries.filter(
-    (entry) =>
-      entry.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      entry.date.includes(searchTerm)
-  );
 
   return (
     <div className={styles.container}>
@@ -43,16 +88,16 @@ const ReadJournalPage: React.FC = () => {
         />
       </div>
       <div className={styles.entryContainer}>
-        {filteredEntries.length > 0 ? (
+        {journalEntries.length > 0 ? (
           <>
-            <h2>{filteredEntries[currentIndex].title}</h2>
-            <p>{filteredEntries[currentIndex].date}</p>
-            <div className={styles.content}>{filteredEntries[currentIndex].content}</div>
+            <h2>{currentEntry?.title}</h2>
+            <p>{currentEntry?.date}</p>
+            <div className={styles.content}>{currentEntry?.content}</div>
             <div className={styles.navigation}>
               <button onClick={handlePrevious} disabled={currentIndex === 0}>
                 Previous
               </button>
-              <button onClick={handleNext} disabled={currentIndex === filteredEntries.length - 1}>
+              <button onClick={handleNext} disabled={currentIndex === journalEntries.length - 1}>
                 Next
               </button>
             </div>
