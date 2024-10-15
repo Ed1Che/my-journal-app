@@ -1,0 +1,83 @@
+/* index.css */
+
+/* Reset some basic elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+/* Button styles */
+button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+button:disabled {
+  background-color: #888;
+  cursor: not-allowed;
+}
+
+/* Input fields */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #aaa;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Header styles */
+h1, h2, h3 {
+  margin-bottom: 15px;
+  font-family: 'Georgia', serif;
+  color: #333;
+}
+
+/* For the journal entry content */
+.entryContent {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  font-family: 'Georgia', serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
