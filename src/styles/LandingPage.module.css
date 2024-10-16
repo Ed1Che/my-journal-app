@@ -73,7 +73,7 @@
   }
   
   .background {
-    background-image: url('/BackLand.jpg');
+    background-image: url('/BackLander.jpg');
     background-size: cover;
     background-position: center;
     height: 100vh; 
