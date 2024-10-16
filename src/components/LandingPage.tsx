@@ -14,22 +14,19 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.overlay}>
-        <img
-          src="/Black_and_Gold_Classic_Minimalist_Self-Discovery_Journal.png"
-          alt="Journal Landing"
-          className={styles.image}
-        />
-        <div className={styles.textContainer}>
-          <h1 className={styles.title}>My Journal</h1>
-          <p className={styles.subtitle}>Self-Discovery Journal</p>
-          <button onClick={handleJournalingClick} className={styles.button}>
-            Start Journaling
-          </button>
-          <button onClick={handleReadJournalClick} className={styles.button}>
-            Read Journal
-          </button>
+    <div className={styles.background}> 
+      <div className={styles.container}>
+        <div className={styles.overlay}>
+            <div className={styles.textContainer}>
+              <h1 className={styles.title}>My Journal</h1>
+              <p className={styles.subtitle}>Self-Discovery Journal</p>
+              <button onClick={handleJournalingClick} className={styles.button}>
+                Start Journaling
+              </button>
+              <button onClick={handleReadJournalClick} className={styles.button}>
+                Read Journal
+              </button>
+            </div>
         </div>
       </div>
     </div>
