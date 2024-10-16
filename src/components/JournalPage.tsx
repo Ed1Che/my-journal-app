@@ -45,9 +45,10 @@ const JournalPage: React.FC = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.background}>
+     <div className={styles.container}>
       <div className={styles.journalHeader}>
-        <h1>Journal</h1>
+        <h1 style={{color: "white"}}>Journal</h1>
         <p>Date: {currentDate}</p>
       </div>
       <div className={styles.entryContainer}>
@@ -67,6 +68,7 @@ const JournalPage: React.FC = () => {
         <button onClick={handleSaveJournal} className={styles.saveButton}>
           Save Journal
         </button>
+      </div>
       </div>
     </div>
   );
